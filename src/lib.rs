@@ -16,7 +16,6 @@ fn handle_request(req: http::Request<Vec<u8>>) -> anyhow::Result<impl IntoRespon
             );
             http::Response::builder()
                 .status(StatusCode::CREATED)
-                .header("content-type", "application/json")
                 .body(None)?
         }
         Method::GET => {
@@ -33,7 +32,6 @@ fn handle_request(req: http::Request<Vec<u8>>) -> anyhow::Result<impl IntoRespon
                     println!("No value found for the key {:?}", req.uri().path());
                     http::Response::builder()
                         .status(StatusCode::NOT_FOUND)
-                        .header("content-type", "application/json")
                         .body(None)?
                 }
             }
@@ -44,7 +42,6 @@ fn handle_request(req: http::Request<Vec<u8>>) -> anyhow::Result<impl IntoRespon
             println!("Delete key {:?}", req.uri().path());
             http::Response::builder()
                 .status(StatusCode::OK)
-                .header("content-type", "application/json")
                 .body(None)?
         }
         Method::HEAD => {
@@ -52,19 +49,16 @@ fn handle_request(req: http::Request<Vec<u8>>) -> anyhow::Result<impl IntoRespon
                 println!("{:?} key found", req.uri().path());
                 http::Response::builder()
                     .status(StatusCode::OK)
-                    .header("content-type", "application/json")
                     .body(None)?
             } else {
                 println!("{:?} key not found", req.uri().path());
                 http::Response::builder()
                     .status(StatusCode::NOT_FOUND)
-                    .header("content-type", "application/json")
                     .body(None)?
             }
         }
         _ => http::Response::builder()
             .status(StatusCode::NOT_FOUND)
-            .header("content-type", "application/json")
             .body(None)?,
     };
     Ok(response)
