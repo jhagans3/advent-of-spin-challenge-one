@@ -2,7 +2,9 @@ use http::{Method, StatusCode};
 use spin_sdk::{http::IntoResponse, http_component, key_value::Store};
 
 #[http_component]
-fn handle_request(req: http::Request<Vec<u8>>) -> anyhow::Result<impl IntoResponse> {
+fn handle_advent_of_spin_challenge_one(
+    req: http::Request<Vec<u8>>,
+) -> anyhow::Result<impl IntoResponse> {
     // Open the default key-value store
     let store = Store::open_default()?;
 
